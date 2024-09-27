@@ -1,13 +1,15 @@
+
 import userModel from "../models/userModel.js";
 
 // add user cart
+
 const addToCart = async (req, res) => {
   try {
     const { userId, itemId, size } = req.body;
 
     const userData = await userModel.findById(userId);
 
-     if (!userData.cartData || typeof userData.cartData !== 'object') {
+     if (!userData.cartData) {
       userData.cartData = {};
      }
 
@@ -89,7 +91,7 @@ const getUserCart = async (req, res) => {
 
     const userData = await userModel.findById(userId);
     let cartData = await userData.cartData;
-
+     
     res.json({ success: true, cartData });
   } catch (error) {
     console.log(error);

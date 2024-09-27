@@ -3,50 +3,50 @@ import userModel from "../models/userModel.js";
 
 //cod
 const placeOrder = async (req, res) => {
-  // try {
-  //   const { userId } = req.body;
-
-  //   // Validate required fields (consider using a validation library)
-  //   if (!userId) {
-  //     return res.json({
-  //       success: false,
-  //       message: "Missing required field: userId",
-  //     });
-  //   } 
-
-  //   // ... rest of your code
-  // } catch (error) {
-  //   console.error(error);
-  //   res.json({
-  //     success: false,
-  //     message: "An error occurred. Please try again.",
-  //   });
-  // }
-
   try {
-    const { userId, items, amount, address } = req.body;
+    const { userId } = req.body;
 
-    const orderData = {
-      userId,
-      items,
-      amount,
-      address,
-      paymentMethod: "COD",
-      payment: false,
-      date: Date.now(),
-    };
+    // Validate required fields (consider using a validation library)
+    if (!userId) {
+      return res.json({
+        success: false,
+        message: "Missing required field: userId",
+      })
+    } 
 
-    const newOrder = new orderModel(orderData)
-    await newOrder.save()
-
-    await userModel.findByIdAndUpdate(userId, { cartData: {} })
-
-    res.json({ success: true, message: "Order Placed" });
+    // ... rest of your code
   } catch (error) {
-    console.log(error);
-    res.json({ success: false, message: error.message });
+    console.error(error);
+    res.json({
+      success: false,
+      message: "An error occurred. Please try again.",
+    });
   }
-};
+}
+//   try {
+//     const { userId, items, amount, address } = req.body;
+
+//     const orderData = {
+//       userId,
+//       items,
+//       amount,
+//       address,
+//       paymentMethod: "COD",
+//       payment: false,
+//       date: Date.now(),
+//     };
+
+//     const newOrder = new orderModel(orderData)
+//     await newOrder.save()
+
+//     await userModel.findByIdAndUpdate(userId, { cartData: {} })
+
+//     res.json({ success: true, message: "Order Placed" });
+//   } catch (error) {
+//     console.log(error);
+//     res.json({ success: false, message: error.message });
+//   }
+// };
 
 //stripe
 const placeOrderStripe = async (req, res) => {};
